@@ -13,10 +13,10 @@
 <template>
   <li class="card">
     <div class="card-body">
-      <p>{{ item.title }}</p>
-      <p>{{ item.original_title }}</p>
-      <p>{{ item.original_language }}</p>
-      <p>{{ item.vote_average }}</p>
+      <p>Titolo: {{ item.title }}</p>
+      <p>Titolo originale: {{ item.original_title }}</p>
+      <p>Lingua Originale:{{ item.original_language }}</p>
+      <p>Voto: {{ item.vote_average }}</p>
       <p>
         <font-awesome-icon v-for="n in 5" :key="n" :icon="['fas', 'star']" />
         <font-awesome-icon :icon="['far', 'star']" />
