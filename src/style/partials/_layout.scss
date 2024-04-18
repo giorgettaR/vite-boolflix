@@ -1,0 +1,35 @@
+@use './variables' as *;
+
+// STYLE HEADER
+
+header {
+
+    img.logo {
+        height: 3rem;
+    }
+
+}
+
+// STYLE MAIN
+
+main .movies li {
+    height: 300px;
+    width: calc(100% / 5);
+
+    img.poster {
+        position: absolute;
+        top: 0px;
+        width: 100%;
+
+        &:hover{
+            opacity: 0;
+            transition: 1s;
+        }
+
+        &:not(:hover){
+            opacity: 1;
+            transition: 1s;
+        }
+    }
+}
+

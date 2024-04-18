@@ -1,19 +1,19 @@
 
 <script>
 import MainApp from './components/MainApp.vue'
-import SearchBar from './components/SearchBar.vue'
+import HeaderApp from './components/HeaderApp.vue'
   
   export default {
     components: {
       MainApp,
-      SearchBar,
+      HeaderApp,
     }
     
   }
 </script>
 
 <template>
-  <SearchBar />
+  <HeaderApp />
   <MainApp />
 </template>
 

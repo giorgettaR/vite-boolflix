@@ -1,1 +1,6 @@
+@use './partials/variables';
 @use './partials/common';
+@use './partials/layout';
+@use './partials/mixins';
+
+@import "bootstrap/scss/bootstrap";
