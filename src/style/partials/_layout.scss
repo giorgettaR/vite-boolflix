@@ -12,24 +12,19 @@ header {
 
 // STYLE MAIN
 
-main .movies li {
-    height: 300px;
-    width: calc(100% / 5);
+main {
+    height: fit-content;
+}
 
-    img.poster {
-        position: absolute;
-        top: 0px;
-        width: 100%;
-
-        &:hover{
-            opacity: 0;
-            transition: 1s;
-        }
-
-        &:not(:hover){
-            opacity: 1;
-            transition: 1s;
-        }
+main .movies,
+main .tvShows {
+    .title {
+        height: 40px;
+    }
+    .results {
+        height: 300px;
+        overflow: hidden;
     }
 }
+
 

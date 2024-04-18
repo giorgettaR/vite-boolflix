@@ -12,6 +12,10 @@
   margin: 0 auto;
 }
 
+ul {
+  list-style-type: none;
+}
+
 #app {
-  background-color: $bg-app;
+  background-color: black;
 }

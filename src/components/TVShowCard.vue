@@ -46,7 +46,7 @@
 </script>
 
 <template>
-  <li class="card">
+  <div class="card">
     <div class="card-body">
       <p>Titolo: {{ item.original_name }}</p>
       <p>Primo Episodio: {{ item.first_air_date }}</p>
@@ -59,7 +59,7 @@
       </p>
       <img :src="getPosterPath(item.poster_path)" alt="">
     </div>
-  </li>
+  </div>
 </template>
 
 <style lang="scss scoped">
