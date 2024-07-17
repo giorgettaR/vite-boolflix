@@ -1,7 +1,6 @@
 
 <script>
 import axios from 'axios'
-import { store } from '../store';
 
 
   export default {
@@ -13,31 +12,28 @@ import { store } from '../store';
     },
     data(){
         return {
-            showInfo: false,
-            gotInfo: false,
-            currentCast: [],
-            flags: [
-                {
-                    language: 'en',
-                    flag: '/public/flags/english.png'
-                },
-                {
-                    language: 'it',
-                    flag: '/public/flags/italian.png'
-                },
-                {
-                    language: 'fr',
-                    flag: '/public/flags/french.png'
-                },
-                {
-                    language: 'es',
-                    flag: '/public/flags/spanish.png'
-                },
-            ]
+          flags: [
+              {
+                  language: 'en',
+                  flag: '/public/flags/english.png'
+              },
+              {
+                  language: 'it',
+                  flag: '/public/flags/italian.png'
+              },
+              {
+                  language: 'fr',
+                  flag: '/public/flags/french.png'
+              },
+              {
+                  language: 'es',
+                  flag: '/public/flags/spanish.png'
+              },
+          ]
         }
     },
     methods: {
-        fetchInfo(movie){
+        fetchInfo(){
             if (this.gotInfo == false){
               axios.get(`https://api.themoviedb.org/3/movie/${this.item.id}/credits?api_key=952819b1623493b0abb662f846bd0331`).then((res) => {
               this.currentCast = res.data.cast
@@ -57,6 +53,9 @@ import { store } from '../store';
             if (lang !== undefined) {
                 return lang.flag
             }
+        },
+        getVote() {
+          return this.item.vote_average.toFixed(1)
         },
         getStarVote(vote_av) {
             return Math.floor( vote_av / 2 )
@@ -78,27 +77,21 @@ import { store } from '../store';
 </script>
 
 <template>
-  <div class="card text-white bg-black p-2">
-    <img class="poster" :src="getPosterPath(item.poster_path)" alt="">
-
-    <div class="card-body p-3">
-
-      <h6 class="card-title">{{ item.title }}</h6>
-        <img class="lang" :src="getImgPath(item.original_language)" alt="">
+  <div class="card text-white bg-black">
+    <img v-if="item.poster_path != null" class="poster h-100 w-100 z-2" :src="getPosterPath(item.poster_path)" alt="">
+    <img v-else class="poster h-100 w-100 z-2 p-5" src="https://ouch-cdn2.icons8.com/oUSOvdU3-qOpsDEsyA3XdoROq4gPnbYncCh9XbUhse4/rs:fit:368:670/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDI5/L2ZlOGJhYjAyLTZi/OWEtNDJkYy1iZjA0/LTA2M2FhODBiYjMw/Mi5zdmc.png" alt="">
+    <div class="info h-100 w-100 p-3 z-3">
+      <h6 class="card-title fw-bold fs-5">{{ item.title }}</h6>
         <p v-if="areNamesEquals == false">Titolo originale: {{ item.original_title }}</p>
-        <p>
-          Lingua Originale: {{ item.original_language }}
-        </p>
-        <p>Voto: {{ item.vote_average }}</p>
+        <p>Lingua Originale: {{ item.original_language }}</p>
+        <p>Voto: {{ getVote() }}</p>
         <p>
           <font-awesome-icon v-for="n in getStarVote(item.vote_average)" :key="n" :icon="['fas', 'star']" />
           <font-awesome-icon v-for="n in 5-getStarVote(item.vote_average)" :key="n" :icon="['far', 'star']" />
         </p>
-        <button class="btn btn-outline-secondary" @click="fetchInfo(item)"> INFO </button>
-      <!-- <ul v-if="(this.showInfo == true)">
-        <li v-for="actor in currentCast"> {{ actor.name }}</li>
-      </ul> -->
-    </div>
+        <button class="btn btn-outline-secondary" @click="fetchInfo()"> INFO </button>
+        <img class="lang" :src="getImgPath(item.original_language)" alt="">
+      </div>
   </div>
 </template>
 
