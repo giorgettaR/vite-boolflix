@@ -62,7 +62,7 @@
     },
     computed: {
       areNamesEquals() {
-        if (this.item.title == this.item.original_title) {
+        if (this.item.name == this.item.original_name) {
           return true
         } else {
           return false
@@ -77,9 +77,9 @@
     <img v-if="item.poster_path != null" class="poster h-100 w-100 z-2" :src="getPosterPath(item.poster_path)" alt="">
     <img v-else class="poster h-100 w-100 z-2 p-5" src="https://ouch-cdn2.icons8.com/oUSOvdU3-qOpsDEsyA3XdoROq4gPnbYncCh9XbUhse4/rs:fit:368:670/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDI5/L2ZlOGJhYjAyLTZi/OWEtNDJkYy1iZjA0/LTA2M2FhODBiYjMw/Mi5zdmc.png" alt="">
     <div class="info h-100 w-100 p-3 z-3">
-      <h6 class="card-title fw-bold fs-5">{{ item.original_name }}</h6>
+      <h6 class="card-title fw-bold fs-5">{{ item.name }}</h6>
       <p>First Episode: {{ item.first_air_date }}</p>
-      <p v-if="areNamesEquals == false">Original Title: {{ item.original_title }}</p>
+      <p v-if="areNamesEquals == false">Original Title: {{ item.original_name }}</p>
       <p>Original Language: {{ item.original_language }}</p>
       <p>Vote: {{ getVote() }}</p>
       <p>
