@@ -1,5 +1,9 @@
 @use './variables' as *;
 
+#app {
+    min-height: 100vh;
+}
+
 // STYLE HEADER
 
 header {
@@ -21,10 +25,9 @@ main .tvShows {
     .title {
         height: 40px;
     }
+
     .results {
         height: 300px;
         overflow: hidden;
     }
 }
-
-

@@ -82,9 +82,9 @@ import axios from 'axios'
     <img v-else class="poster h-100 w-100 z-2 p-5" src="https://ouch-cdn2.icons8.com/oUSOvdU3-qOpsDEsyA3XdoROq4gPnbYncCh9XbUhse4/rs:fit:368:670/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDI5/L2ZlOGJhYjAyLTZi/OWEtNDJkYy1iZjA0/LTA2M2FhODBiYjMw/Mi5zdmc.png" alt="">
     <div class="info h-100 w-100 p-3 z-3">
       <h6 class="card-title fw-bold fs-5">{{ item.title }}</h6>
-        <p v-if="areNamesEquals == false">Titolo originale: {{ item.original_title }}</p>
-        <p>Lingua Originale: {{ item.original_language }}</p>
-        <p>Voto: {{ getVote() }}</p>
+        <p v-if="areNamesEquals == false">Original Title: {{ item.original_title }}</p>
+        <p>Original Language: {{ item.original_language }}</p>
+        <p>Vote: {{ getVote() }}</p>
         <p>
           <font-awesome-icon v-for="n in getStarVote(item.vote_average)" :key="n" :icon="['fas', 'star']" />
           <font-awesome-icon v-for="n in 5-getStarVote(item.vote_average)" :key="n" :icon="['far', 'star']" />

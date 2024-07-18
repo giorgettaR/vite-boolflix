@@ -26,8 +26,8 @@ export default {
 </script>
 
 <template>
-    <div class="col-4 d-flex align-itmes-center">
-        <input class="p-1 m-1" v-model.trim="searchValue" type="text" placeholder="type something">
+    <div class="d-flex justify-content-between">
+        <input class="d-block p-1 m-1 me-3" v-model.trim="searchValue" type="text" placeholder="Type something">
         <button class="btn btn-light mt-1 mb-1" @click="FetchSearch"> Search </button>
     </div>
 </template>

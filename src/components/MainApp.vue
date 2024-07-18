@@ -57,24 +57,24 @@ export default {
 <main>
   <div class="container text-white">
     <div class="row">
-      <div class="movies col-12">
+      <div class="movies pt-3 pb-5 col-12">
         <div class="row">
-          <h3 class="col-12 title">Movies</h3>
+          <h3 class="col-12 pb-5 title">Movies</h3>
           <div class="col-12 results d-flex flex-row"
             v-if="store.arrayMovies.length !== 0">
             <MovieCard v-for="movie in (visibleMovies(visibleMoviesI))" :key="movie.id" :item="movie"/>
           </div>
-          <p v-else>Nessun film trovato</p>
+          <p v-else>No results found for your search</p>
         </div>
       </div>
-      <div class="tvShows col-12">
+      <div class="tvShows pt-3 pb-5 col-12">
         <div class="row">
-          <h3 class="col-12 title">TV-Shows</h3>
+          <h3 class="col-12 pb-5 title">TV-Shows</h3>
           <div class="col-12 results d-flex flex-row flex-wrap"
             v-if="store.arrayTvShows.length !== 0">
             <TVShowCard v-for="tvShow in visibleTVShows(visibleTVShowsI)" :key="tvShow.id" :item="tvShow"  />
           </div>
-          <p v-else>Nessun tv-Show trovato</p>
+          <p v-else>No results found for your search</p>
         </div>
       </div>
     </div>
