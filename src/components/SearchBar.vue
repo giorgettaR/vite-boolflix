@@ -5,7 +5,7 @@ import { store } from '../store.js'
 export default {
     data(){
         return {
-            searchValue: ''
+            searchValue:'',
         }
     },
     methods: {
@@ -21,6 +21,15 @@ export default {
                 })
             }
         }
+    },
+    computed: {
+        disableCheck(){
+            if (this.searchValue != '') {
+                return false
+            } else {
+                return true
+            }
+        }
     }
 }
 </script>
@@ -28,7 +37,7 @@ export default {
 <template>
     <div class="d-flex justify-content-between">
         <input class="d-block p-1 m-1 me-3" v-model.trim="searchValue" type="text" placeholder="Type something">
-        <button class="btn btn-light mt-1 mb-1" @click="FetchSearch"> Search </button>
+        <button class="btn btn-light mt-1 mb-1" :disabled="disableCheck" @click="FetchSearch"> Search </button>
     </div>
 </template>
 
