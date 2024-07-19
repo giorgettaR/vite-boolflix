@@ -15,19 +15,19 @@ import axios from 'axios'
           flags: [
               {
                   language: 'en',
-                  flag: '/public/flags/english.png'
+                  flag: '/flags/english.png'
               },
               {
                   language: 'it',
-                  flag: '/public/flags/italian.png'
+                  flag: '/flags/italian.png'
               },
               {
                   language: 'fr',
-                  flag: '/public/flags/french.png'
+                  flag: '/flags/french.png'
               },
               {
                   language: 'es',
-                  flag: '/public/flags/spanish.png'
+                  flag: '/flags/spanish.png'
               },
           ]
         }

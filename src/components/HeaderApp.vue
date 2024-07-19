@@ -14,7 +14,7 @@ import SearchBar from './SearchBar.vue'
         <div class="container">
         <div class="row">
             <div class="col-12 pt-4 pb-4 d-flex align-items-center justify-content-between text-center">
-                <img src="/public/LogoHeader.jpg" alt="" class="logo">
+                <img src="/LogoHeader.jpg" alt="" class="logo">
                 <SearchBar class="" />
             </div>
         </div>
