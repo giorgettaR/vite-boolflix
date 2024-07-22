@@ -19,3 +19,7 @@ ul {
 #app {
   background-color: black;
 }
+
+body.modal-open {
+  overflow: hidden;
+}

@@ -1,6 +1,8 @@
 
 <script>
 import axios from 'axios'
+import InfoModal from './InfoModal.vue';
+import { store } from '../store';
 
 
   export default {
@@ -10,59 +12,67 @@ import axios from 'axios'
         required: true
       }
     },
+    components: {
+      InfoModal
+    },
     data(){
-        return {
-          flags: [
-              {
-                  language: 'en',
-                  flag: '/flags/english.png'
-              },
-              {
-                  language: 'it',
-                  flag: '/flags/italian.png'
-              },
-              {
-                  language: 'fr',
-                  flag: '/flags/french.png'
-              },
-              {
-                  language: 'es',
-                  flag: '/flags/spanish.png'
-              },
-          ]
-        }
+      return {
+        isModalVisible: false,
+        gotInfo: false,
+        store: store,
+        flags: [
+            {
+                language: 'en',
+                flag: '/flags/english.png'
+            },
+            {
+                language: 'it',
+                flag: '/flags/italian.png'
+            },
+            {
+                language: 'fr',
+                flag: '/flags/french.png'
+            },
+            {
+                language: 'es',
+                flag: '/flags/spanish.png'
+            },
+        ]
+      }
     },
     methods: {
-        fetchInfo(){
-            if (this.gotInfo == false){
-              axios.get(`https://api.themoviedb.org/3/movie/${this.item.id}/credits?api_key=952819b1623493b0abb662f846bd0331`).then((res) => {
-              this.currentCast = res.data.cast
-              this.currentCast.length = 5
-              })
-              this.gotInfo = true
-            }
-            if (this.showInfo){
-              this.showInfo = true
-            } else {
-              this.showInfo = !this.showInfo
-            }
-            console.log(this.currentCast)
-        },
-        getImgPath(abbreviation) {
-            let lang =this.flags.find((country) => country.language == abbreviation)
-            if (lang !== undefined) {
-                return lang.flag
-            }
-        },
-        getVote() {
-          return this.item.vote_average.toFixed(1)
-        },
-        getStarVote(vote_av) {
-            return Math.floor( vote_av / 2 )
-        },
-        getPosterPath(path) {
-            return `https://image.tmdb.org/t/p/w342${path}`
-        }
+      fetchInfo(){
+          if (this.gotInfo == false){
+            axios.get(`https://api.themoviedb.org/3/movie/${this.item.id}?api_key=952819b1623493b0abb662f846bd0331`).then((res) => {
+            store.currentInfo = res.data
+            })
+            this.gotInfo = true
+            console.log(store.currentInfo)
+          }
+      },
+      showModal() {
+      this.isModalVisible = true;
+      document.body.classList.add('modal-open')
+      },
+      closeModal() {
+        this.isModalVisible = false;
+      document.body.classList.remove('modal-open')
+      },
+      getImgPath(abbreviation) {
+          let lang =this.flags.find((country) => country.language == abbreviation)
+          if (lang !== undefined) {
+              return lang.flag
+          }
+      },
+      getVote() {
+        return this.item.vote_average.toFixed(1)
+      },
+      getStarVote(vote_av) {
+          return Math.floor( vote_av / 2 )
+      },
+      getPosterPath(path) {
+          return `https://image.tmdb.org/t/p/w342${path}`
+      }
     },
     computed: {
       areNamesEquals() {
@@ -79,19 +89,22 @@ import axios from 'axios'
 <template>
   <div class="card text-white bg-black">
     <img v-if="item.poster_path != null" class="poster h-100 w-100 z-2" :src="getPosterPath(item.poster_path)" alt="">
-    <img v-else class="poster h-100 w-100 z-2 p-5" src="https://ouch-cdn2.icons8.com/oUSOvdU3-qOpsDEsyA3XdoROq4gPnbYncCh9XbUhse4/rs:fit:368:670/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDI5/L2ZlOGJhYjAyLTZi/OWEtNDJkYy1iZjA0/LTA2M2FhODBiYjMw/Mi5zdmc.png" alt="">
+    <img v-else class="poster h-100 w-100 z-2 p-4" src="https://ouch-cdn2.icons8.com/oUSOvdU3-qOpsDEsyA3XdoROq4gPnbYncCh9XbUhse4/rs:fit:368:670/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDI5/L2ZlOGJhYjAyLTZi/OWEtNDJkYy1iZjA0/LTA2M2FhODBiYjMw/Mi5zdmc.png" alt="">
     <div class="info h-100 w-100 p-3 z-3">
-      <h6 class="card-title fw-bold fs-5">{{ item.title }}</h6>
-        <p v-if="areNamesEquals == false">Original Title: {{ item.original_title }}</p>
-        <p>Original Language: {{ item.original_language }}</p>
-        <p>Vote: {{ getVote() }}</p>
-        <p>
-          <font-awesome-icon v-for="n in getStarVote(item.vote_average)" :key="n" :icon="['fas', 'star']" />
-          <font-awesome-icon v-for="n in 5-getStarVote(item.vote_average)" :key="n" :icon="['far', 'star']" />
-        </p>
-        <button class="btn btn-outline-secondary" @click="fetchInfo()"> INFO </button>
-        <img class="lang" :src="getImgPath(item.original_language)" alt="">
-      </div>
+      <p class="card-title fw-bold fs-5">{{ item.title }}</p>
+      <p v-if="areNamesEquals == false">Original Title: {{ item.original_title }}</p>
+      <p>Original Language: {{ item.original_language }}</p>
+      <p>Vote: {{ getVote() }}</p>
+      <p>
+        <font-awesome-icon v-for="n in getStarVote(item.vote_average)" :key="n" :icon="['fas', 'star']" />
+        <font-awesome-icon v-for="n in 5-getStarVote(item.vote_average)" :key="n" :icon="['far', 'star']" />
+      </p>
+      <button class="btn btn-outline-secondary" @click="fetchInfo(); showModal()"> INFO </button>
+      <img class="lang" :src="getImgPath(item.original_language)" alt="">
+      <Teleport to="body">
+        <InfoModal v-show="isModalVisible" @close="closeModal" :item="this.item" :info="store.currentInfo"/>
+      </Teleport>
+    </div>
   </div>
 </template>
 
