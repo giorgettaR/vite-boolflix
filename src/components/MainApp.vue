@@ -13,15 +13,16 @@ export default {
         store.arrayMovies  = res.data.results
       });
       axios.get(`https://api.themoviedb.org/3/discover/tv?api_key=952819b1623493b0abb662f846bd0331`).then((res) => {
-        store.arrayTvShows  = res.data.results
+        store.arrayTVShows  = res.data.results
       })
     })
   },
   data(){
     return {
         store: store,
-        visibleMoviesI: 5,
-        visibleTVShowsI: 5
+        posterAmount: 5,
+        visibleMoviesI: 0,
+        visibleTVShowsI: 0
     }
   },
   components: {
@@ -29,23 +30,77 @@ export default {
     TVShowCard
   },
   methods: {
-    visibleMovies(i){
+    visibleMovies(){
       let visible = []
-      for (let i = 0; i < this.visibleMoviesI; i++){
+      for (let i = this.visibleMoviesI; i < (this.visibleMoviesI + this.posterAmount ); i++){
         visible.push(this.store.arrayMovies[i])
       }
       console.log()
       return visible
     },
+    leftSlideMovies(){
+      if (this.visibleMoviesI > 0) {
+        this.visibleMoviesI--
+      }
+    },
+    rightSlideMovies(){
+      if (this.visibleMoviesI < store.arrayMovies.length) {
+        this.visibleMoviesI++
+      }
+    },
     visibleTVShows(){
       let visible = []
-      for (let i = 0; i < this.visibleTVShowsI; i++){
-        visible.push(this.store.arrayTvShows[i])
+      for (let i = this.visibleTVShowsI; i < (this.visibleTVShowsI + this.posterAmount); i++){
+        visible.push(this.store.arrayTVShows[i])
       }
-      console.log()
       return visible
+    },   
+    leftSlideTVShows(){
+      if (this.visibleTVShowsI > 0) {
+        this.visibleTVShowsI--
+      }
+    },
+    rightSlideTVShows(){
+      if (this.visibleTVShowsI < store.arrayTVShows.length) {
+        this.visibleTVShowsI++
+      }
+    },
+    clickone(){
+      console.log(this.visibleMoviesI)
+      console.log(store.arrayMovies.length + this.posterAmount)
     }
+
   },
+  computed: {
+    disableCheckLeftSlideMovies() {
+      if (this.visibleMoviesI != 0) {
+        return false
+      } else {
+        return true
+      }
+    },
+    disableCheckRightSlideMovies() {
+      if (this.visibleMoviesI != (store.arrayMovies.length - this.posterAmount)) {
+        return false
+      } else {
+        return true
+      }
+    },
+    disableCheckLeftSlideTVShows() {
+      if (this.visibleTVShowsI != 0) {
+        return false
+      } else {
+        return true
+      }
+    },
+    disableCheckRightSlideTVShows() {
+      if (this.visibleTVShowsI != (store.arrayTVShows.length - this.posterAmount)) {
+        return false
+      } else {
+        return true
+      }
+    },
+  }
 };
 
 
@@ -60,9 +115,11 @@ export default {
       <div class="movies pt-3 pb-5 col-12">
         <div class="row">
           <h3 class="col-12 pb-5 title">Movies</h3>
-          <div class="col-12 results d-flex flex-row"
+          <div class="col-12 results d-flex flex-row justify-content-between align-items-center"
             v-if="store.arrayMovies.length !== 0">
-            <MovieCard v-for="movie in (visibleMovies(visibleMoviesI))" :key="movie.id" :item="movie"/>
+            <button class="slider" :disabled="disableCheckLeftSlideMovies" @click="[leftSlideMovies(), clickone()]"><</button>
+            <MovieCard v-for="movie in (visibleMovies())" :key="movie.id" :item="movie"/>
+            <button class="slider" :disabled="disableCheckRightSlideMovies" @click="[rightSlideMovies(), clickone()]">></button>
           </div>
           <p v-else>No results found for your search</p>
         </div>
@@ -70,9 +127,11 @@ export default {
       <div class="tvShows pt-3 pb-5 col-12">
         <div class="row">
           <h3 class="col-12 pb-5 title">TV-Shows</h3>
-          <div class="col-12 results d-flex flex-row flex-wrap"
-            v-if="store.arrayTvShows.length !== 0">
-            <TVShowCard v-for="tvShow in visibleTVShows(visibleTVShowsI)" :key="tvShow.id" :item="tvShow"  />
+          <div class="col-12 results d-flex flex-row flex-wrap justify-content-between align-items-center"
+            v-if="store.arrayTVShows.length !== 0">
+             <button class="slider" :disabled="disableCheckLeftSlideTVShows" @click="leftSlideTVShows()"><</button>
+            <TVShowCard v-for="tvShow in visibleTVShows(posterAmount)" :key="tvShow.id" :item="tvShow"  />
+            <button class="slider" :disabled="disableCheckRightSlideTVShows" @click="rightSlideTVShows()">></button>
           </div>
           <p v-else>No results found for your search</p>
         </div>

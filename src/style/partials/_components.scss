@@ -1,5 +1,28 @@
 @use './variables' as *;
 
+
+// SLIDER BUTTONS
+
+main button.slider {
+    height: 30px;
+    width: 30px;
+    background-color: white;
+    border: none;
+    margin: 0;
+    line-height: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: inherit;
+    font: inherit;
+    border-radius: 0;
+    appearance: none;
+
+    &:disabled {
+        background-color: grey;
+    }
+}
+
 // CARDS
 
 main .movies .card,
