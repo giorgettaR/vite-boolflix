@@ -16,8 +16,8 @@ export default {
                 console.log(store.arrayMovies)
                 })
                 axios.get(`https://api.themoviedb.org/3/search/tv?api_key=952819b1623493b0abb662f846bd0331&query=${this.searchValue}`).then((res) =>{
-                store.arrayTvShows  = res.data.results
-                console.log(store.arrayTvShows)
+                store.arrayTVShows  = res.data.results
+                console.log(store.arrayTVShows)
                 })
             }
         }

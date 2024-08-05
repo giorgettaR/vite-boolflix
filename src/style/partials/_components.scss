@@ -1,26 +1,10 @@
 @use './variables' as *;
-
+@use './mixins' as *;
 
 // SLIDER BUTTONS
 
 main button.slider {
-    height: 30px;
-    width: 30px;
-    background-color: white;
-    border: none;
-    margin: 0;
-    line-height: 9px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: inherit;
-    font: inherit;
-    border-radius: 0;
-    appearance: none;
-
-    &:disabled {
-        background-color: grey;
-    }
+    @include my_button
 }
 
 // CARDS
@@ -81,9 +65,28 @@ main .tvShows .card {
 
     .infoModal {
         height: 80vh;
+        width: 80vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         img.poster {
             aspect-ratio: 2/3;
+        }
+
+        .info {
+            overflow-y: auto;
+            color: white;
+            position: relative;
+
+        }
+
+        button.close {
+            @include my_button;
+            position: fixed;
+            position: absolute;
+            right: 0;
+            bottom: 0;
         }
     }
 }

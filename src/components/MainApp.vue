@@ -117,9 +117,9 @@ export default {
           <h3 class="col-12 pb-5 title">Movies</h3>
           <div class="col-12 results d-flex flex-row justify-content-between align-items-center"
             v-if="store.arrayMovies.length !== 0">
-            <button class="slider" :disabled="disableCheckLeftSlideMovies" @click="[leftSlideMovies(), clickone()]"><</button>
+            <button class="fw-bold slider" :disabled="disableCheckLeftSlideMovies" @click="[leftSlideMovies(), clickone()]"><</button>
             <MovieCard v-for="movie in (visibleMovies())" :key="movie.id" :item="movie"/>
-            <button class="slider" :disabled="disableCheckRightSlideMovies" @click="[rightSlideMovies(), clickone()]">></button>
+            <button class="fw-bold slider" :disabled="disableCheckRightSlideMovies" @click="[rightSlideMovies(), clickone()]">></button>
           </div>
           <p v-else>No results found for your search</p>
         </div>
